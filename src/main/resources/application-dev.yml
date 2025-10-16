@@ -1,0 +1,10 @@
+server:
+  port: 4100
+
+service:
+  auth:
+    url: http://localhost:4001
+  user:
+    url: http://localhost:4000
+  order:
+    url: http://localhost:4002
