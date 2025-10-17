@@ -1,0 +1,10 @@
+server:
+  port: ${SERVER_PORT}
+
+service:
+  auth:
+    url: ${AUTH_SERVICE_URL}
+  user:
+    url: ${USER_SERVICE_URL}
+  order:
+    url: ${ORDER_SERVICE_URL}
