@@ -1,0 +1,17 @@
+version: '3.8'
+name: api-gateway
+
+services:
+  api-gateway:
+    build: .
+    container_name: api_gateway
+    env_file:
+      - .env
+    ports:
+      - "4100:4100"
+    networks:
+      - gateway-network
+
+networks:
+  gateway-network:
+    driver: bridge
