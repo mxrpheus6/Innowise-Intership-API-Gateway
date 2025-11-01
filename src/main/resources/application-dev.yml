@@ -8,3 +8,5 @@ service:
     url: http://localhost:4000
   order:
     url: http://localhost:4002
+  payment:
+    url: http://localhost:4003
