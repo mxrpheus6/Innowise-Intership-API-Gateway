@@ -28,7 +28,7 @@ public class GatewayConfig {
         return builder.routes()
                 .route("auth-service", r -> r.path("/api/v1/auth/**")
                         .uri(authServiceUrl))
-                .route("order-service", r -> r.path("/api/v1/orders/**")
+                .route("order-service", r -> r.path("/api/v1/orders/**", "/api/v1/items/**")
                         .uri(orderServiceUrl))
                 .route("user-service", r -> r.path("/api/v1/users/**")
                         .uri(userServiceUrl))
