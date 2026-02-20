@@ -1,6 +1,23 @@
 server:
   port: 4100
 
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081/realms/OAuth
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8081/realms/OAuth
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            client-id: api-gateway
+            client-secret: qEpkRF8Q77abATyflnVPdFnoGgc1tkda
+            scope: openid
+
 service:
   auth:
     url: http://localhost:4001
