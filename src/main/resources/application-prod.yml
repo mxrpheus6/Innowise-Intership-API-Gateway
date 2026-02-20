@@ -1,6 +1,24 @@
 server:
   port: ${SERVER_PORT}
 
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${SPRING_SECURITY_OAUTH2_RESOURCE_SERVER_JWT_ISSUER_URI}
+          jwk-set-uri: ${SPRING_SECURITY_OAUTH2_RESOURCE_SERVER_JWK_SET_URI}
+      client:
+        provider:
+          keycloak:
+            issuer-uri: ${SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_JWT_ISSUER_URI}
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            client-id: ${SPRING_SECURITY_OAUTH2_REGISTRATION_KEYCLOAK_CLIENT_ID}
+            client-secret: ${SPRING_SECURITY_OAUTH2_REGISTRATION_KEYCLOAK_CLIENT_SECRET}
+            scope: openid
+
 service:
   auth:
     url: ${AUTH_SERVICE_URL}
@@ -10,3 +28,4 @@ service:
     url: ${ORDER_SERVICE_URL}
   payment:
     url: ${PAYMENT_SERVICE_URL}
+

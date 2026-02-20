@@ -16,7 +16,7 @@ management:
 
   zipkin:
     tracing:
-      endpoint: ${TEMPO_ZIPKIN}/api/v2/spans
+      endpoint: http://localhost:9411/api/v2/spans
 
   tracing:
     sampling:
