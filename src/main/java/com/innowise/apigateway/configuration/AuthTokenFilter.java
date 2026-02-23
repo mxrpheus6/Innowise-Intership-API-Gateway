@@ -41,13 +41,20 @@ public class AuthTokenFilter implements GlobalFilter, Ordered {
                 .switchIfEmpty(chain.filter(exchange));
     }
 
-    @SuppressWarnings("unchecked")
     private List<String> extractRoles(Jwt jwt) {
-        Map<String, Object> realmAccess = (Map<String, Object>) jwt.getClaims().get("realm_access");
+        Object realmAccessObj = jwt.getClaims().get("realm_access");
 
-        if (realmAccess != null && realmAccess.containsKey("roles")) {
-            return (List<String>) realmAccess.get("roles");
+        if (realmAccessObj instanceof Map<?, ?> realmAccess) {
+            Object rolesObj = realmAccess.get("roles");
+
+            if (rolesObj instanceof List<?> rolesList) {
+                return rolesList.stream()
+                        .filter(String.class::isInstance)
+                        .map(String.class::cast)
+                        .toList();
+            }
         }
+
         return List.of();
     }
 

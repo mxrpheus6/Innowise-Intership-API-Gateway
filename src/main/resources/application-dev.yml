@@ -6,16 +6,16 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8081/realms/OAuth
+          issuer-uri: http://localhost:8080/realms/OAuth
       client:
         provider:
           keycloak:
-            issuer-uri: http://localhost:8081/realms/OAuth
+            issuer-uri: http://localhost:8080/realms/OAuth
             user-name-attribute: preferred_username
         registration:
           keycloak:
             client-id: api-gateway
-            client-secret: qEpkRF8Q77abATyflnVPdFnoGgc1tkda
+            client-secret: ${SPRING_SECURITY_OAUTH2_REGISTRATION_KEYCLOAK_CLIENT_SECRET}
             scope: openid
 
 service:
