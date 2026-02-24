@@ -25,8 +25,8 @@ public class BlacklistCheckFilter implements GlobalFilter, Ordered {
                 .map(SecurityContext::getAuthentication)
                 .filter(auth -> auth instanceof JwtAuthenticationToken)
                 .cast(JwtAuthenticationToken.class)
-                .map(jwtAuth -> jwtAuth.getToken().getId())
-                .flatMap(blacklistService::isBlacklisted)
+                .map(jwtAuth -> (String) jwtAuth.getToken().getClaims().get("sid"))
+                .flatMap(sid -> blacklistService.isBlacklisted("sid:" + sid))
                 .defaultIfEmpty(false)
                 .flatMap(isBlacklisted -> {
                     if (isBlacklisted) {

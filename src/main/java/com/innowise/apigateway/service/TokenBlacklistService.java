@@ -11,15 +11,15 @@ import reactor.core.publisher.Mono;
 public class TokenBlacklistService {
 
     private final ReactiveStringRedisTemplate redisTemplate;
-    private static final String PREFIX = "blacklist:jti:";
+    private static final String PREFIX = "blacklist:sid:";
 
-    public Mono<Boolean> addToBlacklist(String jti, long ttlSeconds) {
+    public Mono<Boolean> addToBlacklist(String sid, long ttlSeconds) {
         return redisTemplate.opsForValue()
-                .set(PREFIX + jti, "revoked", Duration.ofSeconds(ttlSeconds));
+                .set(PREFIX + sid, "revoked", Duration.ofSeconds(ttlSeconds));
     }
 
-    public Mono<Boolean> isBlacklisted(String jti) {
-        return redisTemplate.hasKey(PREFIX + jti);
+    public Mono<Boolean> isBlacklisted(String sid) {
+        return redisTemplate.hasKey(PREFIX + sid);
     }
 
 }

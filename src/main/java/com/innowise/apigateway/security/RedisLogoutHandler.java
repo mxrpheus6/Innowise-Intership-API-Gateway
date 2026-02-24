@@ -20,14 +20,13 @@ public class RedisLogoutHandler implements ServerLogoutHandler {
     @Override
     public Mono<Void> logout(WebFilterExchange exchange, Authentication authentication) {
         if (authentication instanceof JwtAuthenticationToken jwtAuth) {
-            String jti = jwtAuth.getToken().getId();
+            String sid = (String) jwtAuth.getToken().getClaims().get("sid");
             Instant expiresAt = jwtAuth.getToken().getExpiresAt();
 
-            if (jti != null && expiresAt != null) {
+            if (sid != null && expiresAt != null) {
                 long ttlSeconds = Duration.between(Instant.now(), expiresAt).getSeconds();
                 if (ttlSeconds > 0) {
-                    return blacklistService.addToBlacklist(jti, ttlSeconds).then();
-                }
+                    return blacklistService.addToBlacklist("sid:" + sid, ttlSeconds).then();                }
             }
         }
         return Mono.empty();
